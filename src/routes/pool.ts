@@ -74,7 +74,7 @@ export async function poolRoutes(fastify: FastifyInstance) {
       }
       if (pool.participants.length > 0) {
         return reply.status(400).send({
-          message: 'Usuário já está logado',
+          message: `Você já está no Bolão\nProcure em "Meus Bolões"`,
         });
       }
       if (!pool.ownerId) {
