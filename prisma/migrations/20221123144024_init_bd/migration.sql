@@ -22,6 +22,7 @@ CREATE TABLE "User" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
+    "googleId" TEXT,
     "avatarUrl" TEXT,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
@@ -31,14 +32,14 @@ CREATE TABLE "Game" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "date" DATETIME NOT NULL,
     "firstTeamCountryCode" TEXT NOT NULL,
-    "secoundTeamCountryCode" TEXT NOT NULL
+    "secondTeamCountryCode" TEXT NOT NULL
 );
 
 -- CreateTable
 CREATE TABLE "Guess" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "firstTeamPoints" INTEGER NOT NULL,
-    "secoundTeamPoints" INTEGER NOT NULL,
+    "secondTeamPoints" INTEGER NOT NULL,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "gameId" TEXT NOT NULL,
     "participantsId" TEXT NOT NULL,
@@ -54,3 +55,9 @@ CREATE UNIQUE INDEX "Participant_userId_poolId_key" ON "Participant"("userId", "
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_googleId_key" ON "User"("googleId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Guess_participantsId_gameId_key" ON "Guess"("participantsId", "gameId");

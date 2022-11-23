@@ -1,55 +1,61 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from "@prisma/client"
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient()
 
 async function main() {
   const user = await prisma.user.create({
     data: {
       name: 'John Doe',
-      email: 'john@example',
-      googleId: '29387089123750912834709',
-      avatarUrl: 'https://github.com/je4npw.png',
-    },
+      email: 'john.doe@gmail.com',
+      avatarUrl: 'https://github.com/diego3g.png',
+    }
   });
+
   const pool = await prisma.pool.create({
     data: {
       title: 'Example Pool',
       code: 'BOL123',
       ownerId: user.id,
+
       participants: {
         create: {
           userId: user.id,
-        },
-      },
-    },
+        }
+      }
+    }
   });
+
   await prisma.game.create({
     data: {
-      date: '2022-12-01T21:39:50.021Z',
-      firstTeamCountryCode: 'AF',
-      secoundTeamCountryCode: 'BO',
-    },
-  });
+      date: '2022-11-02T12:00:00.201Z',
+      firstTeamCountryCode: 'DE',
+      secondTeamCountryCode: 'BR',
+    }
+  })
+
   await prisma.game.create({
     data: {
-      date: '2022-12-02T21:39:50.021Z',
+      date: '2022-11-03T12:00:00.201Z',
       firstTeamCountryCode: 'BR',
-      secoundTeamCountryCode: 'AR',
+      secondTeamCountryCode: 'AR',
+
       guesses: {
         create: {
-          firstTeamPoints: 3,
-          secoundTeamPoints: 1,
+          firstTeamPoints: 2,
+          secondTeamPoints: 1,
+
           participant: {
             connect: {
               userId_poolId: {
                 userId: user.id,
                 poolId: pool.id,
-              },
-            },
-          },
-        },
-      },
+              }
+            }
+          }
+        }
+      }
     },
-  });
+  })
 }
-main();
+
+main()
