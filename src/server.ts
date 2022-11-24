@@ -13,7 +13,7 @@ interface Props {
   title: string;
 }
 const prisma = new PrismaClient({
-  log: ['query'],
+  log: ['error'],
 });
 
 async function bootstrap() {

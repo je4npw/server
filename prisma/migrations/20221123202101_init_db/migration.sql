@@ -42,8 +42,8 @@ CREATE TABLE "Guess" (
     "secondTeamPoints" INTEGER NOT NULL,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "gameId" TEXT NOT NULL,
-    "participantsId" TEXT NOT NULL,
-    CONSTRAINT "Guess_participantsId_fkey" FOREIGN KEY ("participantsId") REFERENCES "Participant" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
+    "participantId" TEXT NOT NULL,
+    CONSTRAINT "Guess_participantId_fkey" FOREIGN KEY ("participantId") REFERENCES "Participant" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT "Guess_gameId_fkey" FOREIGN KEY ("gameId") REFERENCES "Game" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
@@ -60,4 +60,4 @@ CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 CREATE UNIQUE INDEX "User_googleId_key" ON "User"("googleId");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Guess_participantsId_gameId_key" ON "Guess"("participantsId", "gameId");
+CREATE UNIQUE INDEX "Guess_participantId_gameId_key" ON "Guess"("participantId", "gameId");
